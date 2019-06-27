@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+     <head>
+     <title>HTML5 canvas</title>
+     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width" />
+     <style type="text/css">
+        body 
+        {
+                margin: 0px;
+                padding: 0px;
+        }
+     </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
+        
+    </script>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="1000" height="1000" >
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
+        <script>
+            window.onload = function() {
+                var c=document.getElementById("myCanvas");
+                var ctx=c.getContext("2d");
+                var img=document.getElementById("scream");
+                ctx.drawImage(img,0,0);
+
+                // context.beginPath();
+                // context.rect(10, 10, 80, 80);
+                // context.fillStyle = "rgba(255, 255, 255, 0.5)";
+                // context.fill();
+                // context.lineWidth = 5;
+                // context.strokeStyle = "rgba(0, 0, 0, 0.5)";
+
+                var canvasx = $(c).offset().left;
+                var canvasy = $(c).offset().top;
+                var last_mousex = last_mousey = 0;
+                var mousex = mousey = 0;
+                var mousedown = false;
+
+                var fwidth = 0;
+                var fheight = 0;
+                var wasdown = false;
+
+                //Mousedown
+                $(c).on('mousedown', function(e) {
+                    last_mousex = parseInt(e.clientX-canvasx);
+                    last_mousey = parseInt(e.clientY-canvasy);
+                    ctx.rect(last_mousex,last_mousey,fwidth,fheight);
+                    mousedown = true;
+                });
+
+                //Mouseup
+                $(c).on('mouseup', function(e) {
+                    mousedown = false;
+
+                    if(wasdown==true)
+                    {
+                        ctx.beginPath();
+                        
+                        ctx.rect(last_mousex,last_mousey,fwidth,fheight);
+                        ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                        wasdown = false;
+
+                    }
+
+                   
+
+                });
+
+                //Mousemove
+                $(c).on('mousemove', function(e) {
+                    mousex = parseInt(e.clientX-canvasx);
+                    mousey = parseInt(e.clientY-canvasy);
+                    if(mousedown) {
+                        // ctx.clearRect(0,0,canvas.width,canvas.height); //clear canvas
+                        fwidth = mousex-last_mousex;
+                        fheight = mousey-last_mousey;
+                        wasdown = true;
+                    }
+                    //Output
+                    $('#output').html('current: '+mousex+', '+mousey+'<br/>last: '+last_mousex+', '+last_mousey+'<br/>mousedown: '+mousedown);
+                })
+            }
+        
+        </script>
+        <img style="visibility: hidden"id="scream" src="/home/tushar/Pictures/drone.jpg"
+         alt="The Scream" width="220" height="277"></img>
+
+        <p>Canvas:</p>
+     </body>
+ </html>

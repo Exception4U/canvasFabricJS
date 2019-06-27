@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+     <head>
+     <title>HTML5 canvas</title>
+     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width" />
+     <style type="text/css">
+        body 
+        {
+                margin: 0px;
+                padding: 0px;
+        }
+     </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
+    </script>
+    <script type="text/javascript" src="fabric.min.js"></script>
+    </head>
+    <body>
+        <canvas id="c13" height="1000" width="1000">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
+        <script type="text/javascript">
+			  var canvas = new fabric.Canvas('c13');
+			  
+			  canvas.setBackgroundImage('/home/tushar/Pictures/sample.jpg', canvas.renderAll.bind(canvas));
+              canvas.add(new fabric.Rect({ width: 30, height: 30, fill: 'rgba(255, 255, 255, 0.5)', top: 100, left: 100 }));
+              canvas.add(new fabric.Rect({ width: 30, height: 30, fill: 'rgba(255, 255, 255, 0.5)', top: 100, left: 100 }));
+              // this.__canvases.push(canvas);
+             
+              function addNew(){
+              	canvas.add(new fabric.Rect({ width: 30, height: 30, fill: 'rgba(255, 255, 255, 0.5)', top: 100, left: 100 }));
+              }
+             		
+              
+             
+        </script>
+     <!--    <img style="visibility: hidden"id="scream" src="/home/tushar/Pictures/drone.jpg"
+         alt="The Scream" width="220" height="277"></img>
+ -->
+        <p>Canvas:</p>
+        <button id="add_more_shapes" onclick="addNew()"> Add More boxes</button>
+     </body>
+ </html>
